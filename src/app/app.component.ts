@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +9,17 @@ import { Component } from '@angular/core';
 export class AppComponent {
   hidden = false;
   unreadMessages = 0;
+  private router: Router;
 
   btType:ButtonType; 
   buttonEnumType: typeof ButtonType = ButtonType;
   title = 'mdb-angular-free';
 
   successAlert = false;
+
+  navigateToChat(){
+    this.router.navigate(['/chat']);
+  }
 
   setUnreadMessageNumber(){
     this.unreadMessages = 15;

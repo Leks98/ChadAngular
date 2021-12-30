@@ -1,94 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpService } from '../http.service';
-import { MessageWSService } from '../message-ws.service';
-import { User } from '../user';
-
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-root',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+  hidden = false;
+  unreadMessages = 0;
+  private router: Router;
 
-    // obiekt formularza
-    loginForm: FormGroup;
-    // zapisanie informacji o tym, że dane zostały wysłane do serwera i jesteśmy w trakcie oczekiwania na dane
-    loading = false;
-    // zapisanie informacji o tym, że użytkownik nacisnął przycisk akceptujący formularz
-    submitted = false;
-    // lista błędów otrzymanych z serwera
-    serverErrors: String[] = [];
+  btType:ButtonType; 
+  buttonEnumType: typeof ButtonType = ButtonType;
+  title = 'mdb-angular-free';
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private wsService: MessageWSService,
-    private httpService: HttpService,
-  ) {
-    // Sprawdzenie czy uzytkownik nie jest zalogowany, jezeli tak - przejscie do głownego panelu
-    if (httpService.isLogin) {
-      this.router.navigate(['/']);
-    }
+  successAlert = false;
+
+  navigateToChat(){
+    this.router.navigate(['/chat']);
   }
 
-  ngOnInit() {
-    // Tworzenie grupy pól formularza
-    this.loginForm = this.formBuilder.group({
-      user_name: ['', [Validators.required, Validators.minLength(3)]],
-      user_password: ['', [Validators.required, Validators.minLength(3)]]
-    });
+  setUnreadMessageNumber(){
+    this.unreadMessages = 15;
   }
-
-  // Getter zwracający pola formularza
-  get formControls() {
-    return this.loginForm.controls;
+  setButtonText(buttonType:ButtonType){
+    this.btType=buttonType;
   }
-
-  onSubmit() {
-    this.submitted = true;
-    this.serverErrors = [];
-
-    // Sprawdzenie poprawności danych w formularzu
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    this.loading = true;
-
-    // Stworzenie obiektu uzytkownika z danych formularza i przesłanie ich do serwera
-    this.httpService.login(new User(0, this.loginForm.controls.user_name.value, this.loginForm.controls.user_password.value))
-      // Subskrybcja do strumienia danych zwrotnych z zapytania http
-      .subscribe(
-        data => {
-          if ("loggedin" in data) {
-            if (data["loggedin"] === true) {
-              this.wsService.open();
-              // Zapisanie informacji o tym, że udało się zalogować użytkownika oraz jego dane
-              this.httpService.isLogin = true;
-              this.httpService.user = new User(data["user_id"], data["user_name"], "");
-              // przejscie do glownej strony jezeli udało się zalogowac
-              this.router.navigate(['/']);
-            } else {
-              this.loading = false;
-              // dodanie błędów do listy jeżeli nie udało się zarejestrować użytkownika
-              this.serverErrors.push(JSON.stringify(data));
-              console.log("LoginComponent, onSubmit:", data);
-            }
-          } else {
-            this.loading = false;
-            // dodanie błędów do listy jeżeli nie udało się zarejestrować użytkownika
-            this.serverErrors.push(JSON.stringify(data));
-            console.log("LoginComponent, onSubmit:", data);
-          }
-
-        },
-        error => {
-          this.loading = false;
-        });
-
+  toggleBadgeVisibility() {
+    this.hidden = !this.hidden;
   }
+  copyToClipboard(value: string): void {
+    const tempInput = document.createElement("input");
+    tempInput.value = value;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
 
+    this.successAlert = true;
+
+    setTimeout(() => {
+      this.successAlert = false;
+    }, 900);
+  }
+}
+
+enum ButtonType{
+  none,
+  home, 
+  info,
 }

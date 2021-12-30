@@ -29,7 +29,7 @@ export class ChatComponent {
   ) {
     // Sprawdzenie czy uzytkownik nie jest zalogowany, jezeli tak - przejscie do głownego panelu
     if (!httpService.isLogin) {
-      this.router.navigate(['/login']);
+      //this.router.navigate(['/login']);
     }
   }
 

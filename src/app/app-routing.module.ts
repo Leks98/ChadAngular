@@ -6,9 +6,11 @@ import { ChatComponent } from './chat/chat.component';
 
 
 const routes: Routes = [
-  { path: '', component: ChatComponent },
-  { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'chat', component: ChatComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({
