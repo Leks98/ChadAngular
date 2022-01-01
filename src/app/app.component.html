@@ -7,28 +7,30 @@
         </mdb-navbar-brand>
         <links>
           <ul class="navbar-nav mr-auto">
-            <div height="auto" (mouseover)="setButtonText(buttonEnumType.home)"
-              (mouseout)="setButtonText(buttonEnumType.none)">
-              <li class="nav-item active waves-light" mdbWavesEffect>
+            <div height="auto" (mouseover)="setHoveredButton(buttonEnumType.home)"
+              (mouseout)="setHoveredButton(buttonEnumType.none)"
+              (click)="selectedButton = buttonEnumType.home">
+              <li class="nav-item waves-light" mdbWavesEffect [ngClass]="{'active' : selectedButton == buttonEnumType.home}">
                 <a class="nav-link" href="#">
                   <mdb-icon fas icon="home"></mdb-icon>
-                  <span *ngIf="btType==buttonEnumType.home">Home</span>
-                  <span class="sr-only">(current)</span>
+                  <span *ngIf="hoveredButton==buttonEnumType.home">Home</span>
                 </a>
               </li>
             </div>
-            <div height="auto" (mouseover)="setButtonText(buttonEnumType.info)"
-              (mouseout)="setButtonText(buttonEnumType.none)">
-              <li class="nav-item waves-light" mdbWavesEffect>
+            <div height="auto" (mouseover)="setHoveredButton(buttonEnumType.info)"
+              (mouseout)="setHoveredButton(buttonEnumType.none)"
+              (click)="selectedButton = buttonEnumType.info">
+              <li class="nav-item waves-light" mdbWavesEffect [ngClass]="{'active' : selectedButton == buttonEnumType.info}"> 
                 <a class="nav-link" href="#">
                   <mdb-icon fas icon="exclamation-circle"></mdb-icon><span
-                    *ngIf="btType==buttonEnumType.info">Info</span>
+                    *ngIf="hoveredButton==buttonEnumType.info">Info</span>
                 </a>
             </div>
 
           </ul>
           <ul class="navbar-nav ml-auto nav-flex-icons">
-            <li class="nav-item waves-light" mdbWavesEffect style="align-self: center;">
+            <li class="nav-item waves-light" mdbWavesEffect style="align-self: center;"
+            (click)="selectedButton = buttonEnumType.chat" [ngClass]="{'active' : selectedButton == buttonEnumType.chat}">
               <a class="nav-link" href="#chat">
                 <mat-icon [ngStyle]="{'color':'white'}" matBadge="{{unreadMessages}}" matBadgeColor="warn">mail_outline
                 </mat-icon>

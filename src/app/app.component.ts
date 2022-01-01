@@ -11,7 +11,8 @@ export class AppComponent {
   unreadMessages = 0;
   private router: Router;
 
-  btType:ButtonType; 
+  hoveredButton:ButtonType; 
+  selectedButton = ButtonType.home;
   buttonEnumType: typeof ButtonType = ButtonType;
   title = 'mdb-angular-free';
 
@@ -24,8 +25,8 @@ export class AppComponent {
   setUnreadMessageNumber(){
     this.unreadMessages = 15;
   }
-  setButtonText(buttonType:ButtonType){
-    this.btType=buttonType;
+  setHoveredButton(buttonType:ButtonType){
+    this.hoveredButton=buttonType;
   }
   toggleBadgeVisibility() {
     this.hidden = !this.hidden;
@@ -50,4 +51,5 @@ enum ButtonType{
   none,
   home, 
   info,
+  chat,
 }
