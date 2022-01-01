@@ -32,3 +32,12 @@
 div {
   overflow: inherit;
 }
+
+// prevent initial invalid height of the navbar
+::ng-deep {
+  mdb-navbar {
+    #navbarCollapse {
+      height: auto !important;
+    }
+  }
+}
