@@ -89,7 +89,6 @@ img{ max-width:100%;}
 }
 
 .msg_history {
-  height: calc(100% - #{$typeMessageHeight} - #{$navbarHeight});
   overflow-y: auto;
 }
 
