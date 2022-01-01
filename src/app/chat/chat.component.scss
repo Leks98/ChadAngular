@@ -47,30 +47,8 @@ img{ max-width:100%;}
 }
 .srch_bar .input-group-addon { margin: 0 0 0 -27px;}
 
-.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
-.chat_ib h5 span{ font-size:13px; float:right;}
-.chat_ib p{ font-size:14px; color:#989898; margin:auto}
-.chat_img {
-  float: left;
-  width: 11%;
-}
-.chat_ib {
-  float: left;
-  padding: 0 0 0 15px;
-  width: 88%;
-}
 
-.chat_people{ 
-  overflow:hidden; 
-  clear:both;
-}
 
-.chat_list {
-  background: #05728f;
-  border-bottom: 1px solid #c4c4c4;
-  margin: 0;
-  padding: 18px 16px 10px;
-}
 
 .inbox_chat { 
   height: 90vh; 
@@ -91,8 +69,6 @@ img{ max-width:100%;}
 .msg_history {
   overflow-y: auto;
 }
-
-.active_chat{ background:#ebebeb;}
 
 .incoming_msg_img {
   display: inline-block;
@@ -146,7 +122,7 @@ img{ max-width:100%;}
   textarea {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: medium none;
-    color: #4c4c4c;
+    color: #ccc;
     font-size: 15px;
     width: calc(100% - #{$sendButtonSize});
     resize: none;

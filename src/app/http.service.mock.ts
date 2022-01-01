@@ -4,6 +4,8 @@ import { Message } from './message';
 import { HttpServiceInterface } from './interfaces';
 import { of } from 'rxjs';
 
+const THIS_USER = new User(0, "user_name_0", "", true);
+
 const URL = "/api"
 
 @Injectable({
@@ -11,7 +13,7 @@ const URL = "/api"
 })  
 export class HttpServiceMock implements HttpServiceInterface {
   isLogin: boolean = true;
-  loginUserData: User; 
+  loginUserData: User = THIS_USER; 
 
   constructor() { }
 
@@ -35,19 +37,29 @@ export class HttpServiceMock implements HttpServiceInterface {
   getUsers(){
     return of({
         data: [
-            new User(0, "user_name_0", "", true),
             new User(1, "user_name_1", "", true),
+            new User(2, "user_name_2", "", true),
         ]
     })
   }
 
   getMessages(id: number){
-    return of({
-        data: [
-            new Message(0, "hello0"),
-            new Message(1, "hello1"),
-        ]
-    })
+      switch(id) {
+          case 1:
+            return of({
+                data: [
+                    new Message(0, "1 to 0, hello"),
+                    new Message(1, "0 to 1, hello"),
+                ]
+            })
+        case 2:
+            return of({
+                data: [
+                    new Message(0, "2 to 0, hello"),
+                    new Message(2, "0 to 2, hello"),
+                ]
+            })
+      }
   }
 
   sendMessages(mes: Message){

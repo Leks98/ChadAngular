@@ -26,6 +26,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HttpService } from './http.service';
 import { HttpServiceMock } from './http.service.mock';
+import { MessageComponent } from './message/message.component';
+import { UserViewComponent } from './user-view/user-view.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { HttpServiceMock } from './http.service.mock';
     ChatComponent,
     ChatUserListComponent,
     ChatMessageListComponent,
-    ChatNewMessageAreaComponent
+    ChatNewMessageAreaComponent,
+    MessageComponent,
+    UserViewComponent
   ],
   imports: [
     BrowserModule,
