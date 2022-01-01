@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { User } from '../user';
 
 @Component({
   selector: 'app-user-view',
@@ -7,6 +8,12 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class UserViewComponent implements OnInit {
   @Input() active = false;
+  @Input() user = new User(
+    -1,
+    "name",
+    "",
+    false
+  );
 
   constructor() { }
 

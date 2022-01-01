@@ -20,7 +20,7 @@
             <div height="auto" (mouseover)="setButtonText(buttonEnumType.info)"
               (mouseout)="setButtonText(buttonEnumType.none)">
               <li class="nav-item waves-light" mdbWavesEffect>
-                <a class="nav-link" href="#chat">
+                <a class="nav-link" href="#">
                   <mdb-icon fas icon="exclamation-circle"></mdb-icon><span
                     *ngIf="btType==buttonEnumType.info">Info</span>
                 </a>
@@ -29,7 +29,7 @@
           </ul>
           <ul class="navbar-nav ml-auto nav-flex-icons">
             <li class="nav-item waves-light" mdbWavesEffect style="align-self: center;">
-              <a class="nav-link">
+              <a class="nav-link" href="#chat">
                 <mat-icon [ngStyle]="{'color':'white'}" matBadge="{{unreadMessages}}" matBadgeColor="warn">mail_outline
                 </mat-icon>
               </a>
