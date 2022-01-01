@@ -1,47 +1,57 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { User } from './user';
 import { Message } from './message';
 import { HttpServiceInterface } from './interfaces';
+import { of } from 'rxjs';
 
 const URL = "/api"
 
 @Injectable({
   providedIn: 'root'
 })  
-export class HttpService implements HttpServiceInterface {
-
-  // dla uproszczenia działania aplikacji - UserService będzie przechowywać dane o zalogowanym uzytkowniku
-  isLogin: boolean = false;
+export class HttpServiceMock implements HttpServiceInterface {
+  isLogin: boolean = true;
   loginUserData: User; 
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   // Funkcja umożliwiająca logowanie
   login(user: User) {
-    return this.http.post(URL + "/login", user);
+    return of({})
   }
 
   // Funkcja umożliwiająca wylogowanie
   logout() {
-    return this.http.get(URL + "/logout");
+    return of({})
   }
 
   // Funkcja umożliwiająca rejestrację
   register(user: User) {
-    return this.http.post(URL + "/register", user);
+    return of({
+        register: true
+    })
   }
 
   getUsers(){
-    return this.http.get(URL + "/users");
+    return of({
+        data: [
+            new User(0, "user_name_0", "", true),
+            new User(1, "user_name_1", "", true),
+        ]
+    })
   }
 
   getMessages(id: number){
-    return this.http.get(URL + "/messages/" + id);
+    return of({
+        data: [
+            new Message(0, "hello0"),
+            new Message(1, "hello1"),
+        ]
+    })
   }
 
   sendMessages(mes: Message){
-    return this.http.post(URL + "/messages/", mes);
+    return of({})
   }
   // Setter ustawiający wartość w polu loginUserData
   set user(user: User) {

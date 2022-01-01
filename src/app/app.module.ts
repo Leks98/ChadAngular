@@ -24,6 +24,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { HttpService } from './http.service';
+import { HttpServiceMock } from './http.service.mock';
 
 
 @NgModule({
@@ -55,7 +57,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCheckboxModule,
     
   ],
-  providers: [ ],
+  providers: [
+    {
+      provide: 'HttpServiceInterface',
+      useExisting: HttpServiceMock
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

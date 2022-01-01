@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpService } from '../http.service';
+import { HttpServiceInterface } from '../interfaces';
 import { User } from '../user';
 
 
@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private httpService: HttpService
+    @Inject('HttpServiceInterface') private httpService: HttpServiceInterface
   ) {
     // Sprawdzenie czy uzytkownik nie jest zalogowany, jezeli tak - przejscie do głownego panelu
     if (httpService.isLogin) { 
