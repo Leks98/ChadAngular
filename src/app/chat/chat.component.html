@@ -6,10 +6,10 @@
       </div>
       <div class="srch_bar">
         <div class="stylish-input-group">
-          <input type="text" class="search-bar" placeholder="Search" />
+          <input type="text" class="search-bar" placeholder="Search" (input)="onSearchChange($event.target.value)"/>
           <span class="input-group-addon">
             <button type="button">
-              <i class="fa fa-search" aria-hidden="true"></i>
+              <i class="fa fa-search" aria-hidden="true"></i> 
             </button>
           </span>
         </div>
@@ -17,7 +17,7 @@
     </div>
     <div class="inbox_chat">
       <app-user-view
-        *ngFor="let user of users"
+        *ngFor="let user of filteredUsers"
         (click)="userSelected(user)"
         [user]="user"
         [active]="!selectedUser ? false : selectedUser.user_id == user.user_id"

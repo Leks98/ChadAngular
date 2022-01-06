@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../user';
 import { Message } from '../message';
@@ -11,10 +11,11 @@ import { HttpServiceInterface } from '../interfaces';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent {
-
+  @Input() searchContent = ""
  
   // lista użytkowników
   users: User[] = [];
+  filteredUsers: User[] = [];
 
   // lista wiadomości z wybranym uzytkownikiem
   messagesToUser: Message[] = [];
@@ -31,6 +32,20 @@ export class ChatComponent {
     if (!httpService.isLogin) {
       //this.router.navigate(['/login']);
     }
+  }
+
+  filter(filter: string) {
+    if (filter == "") {
+      this.filteredUsers = this.users
+    } else {
+      this.filteredUsers = this.users.filter((user) => {
+        return user.user_name.includes(filter)
+      })
+    }
+  }
+
+  onSearchChange(content: string) {
+    this.filter(content)
   }
 
   ngOnInit() {
@@ -69,6 +84,7 @@ export class ChatComponent {
           console.log("data");
           if (Array.isArray(data["data"])) {
             this.users = data["data"] as User[];
+            this.filteredUsers = this.users
           }
         }
       },
