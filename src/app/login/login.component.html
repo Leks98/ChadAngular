@@ -60,30 +60,32 @@
           <div class=" non-scrollable" role="navigation">
             <mdb-card class="wow fadeInRight" data-wow-delay="0.3s">
               <mdb-card-body class="credentials-panel">
-                <div class="text-center">
-                  <h1 class="white-text">
-                    Sign In
-                  </h1>
-                </div>
-                <div class="sign-in-textboxs">
-                  <div class="md-form">
-                    <mdb-icon fas icon="envelope" class="prefix text-white active"></mdb-icon>
-                    <input type="email" id="form1" class="text-white form-control" mdbInput>
-                    <label for="form1" class="text-white">Your email</label>
+                <form [formGroup]="form" (ngSubmit)="onLoginSubmit()">
+                  <div class="text-center">
+                    <h1 class="white-text">
+                      Sign In
+                    </h1>
                   </div>
-                  <div class="md-form">
-                    <mdb-icon fas icon="key" class="prefix text-white active"></mdb-icon>
-                    <input type="password" id="form2" class="text-white form-control" mdbInput>
-                    <label for="form2" class="text-white">Your password</label>
-                  </div>
-                </div>
-                <div class="text-center mt-4 credentials-button-div">
-                  <button class="element-center" mdbBtn color="info" mdbWavesEffect>
-                    <div class="font-color">
-                      Sign in
+                  <div class="sign-in-textboxs">
+                    <div class="md-form">
+                      <mdb-icon fas icon="envelope" class="prefix text-white active"></mdb-icon>
+                      <input type="email" id="form1" class="text-white form-control" mdbInput formControlName="user_name">
+                      <label for="form1" class="text-white">Your email</label>
                     </div>
-                  </button>
-                </div>
+                    <div class="md-form">
+                      <mdb-icon fas icon="key" class="prefix text-white active"></mdb-icon>
+                      <input type="password" id="form2" class="text-white form-control" mdbInput formControlName="user_password">
+                      <label for="form2" class="text-white">Your password</label>
+                    </div>
+                  </div>
+                  <div class="text-center mt-4 credentials-button-div">
+                    <button class="element-center" mdbBtn color="info" mdbWavesEffect type="submit">
+                      <div class="font-color">
+                        Sign in
+                      </div>
+                    </button>
+                  </div>
+                </form>
               </mdb-card-body>
             </mdb-card>
           </div>

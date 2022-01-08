@@ -3,11 +3,12 @@ import { Message } from "./message";
 import { User } from "./user";
 
 export interface HttpServiceInterface {
-  isLogin: boolean;
+  loggedIn: Observable<boolean>;
   loginUserData: User;
 
+  changedLoginState(state: boolean);
   // Funkcja umożliwiająca logowanie
-  login(user: User): Observable<Object>;
+  login(user_name: string, user_password: string): Observable<any>;
 
   // Funkcja umożliwiająca wylogowanie
   logout(): Observable<Object>;

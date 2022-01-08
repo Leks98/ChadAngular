@@ -3,25 +3,29 @@ import { User } from './user';
 import { Message } from './message';
 import { HttpServiceInterface } from './interfaces';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-
-const THIS_USER = new User(0, "user_name_0", true);
+import { HttpClient } from '@angular/common/http';
 
 const URL = "/api"
 
 @Injectable({
   providedIn: 'root'
 })  
-export class HttpServiceMock implements HttpServiceInterface {
+export class HttpServiceNode implements HttpServiceInterface {
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  loginUserData: User = THIS_USER; 
+  loginUserData: User = null; 
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) {}
 
-  changedLoginState(state: boolean) {}
+  changedLoginState(state: boolean) {
+    this.loggedIn.next(state)
+  }
 
   // Funkcja umożliwiająca logowanie
   login(user_name: string, user_password: string) {
-    return of({})
+    return this.httpClient.post("/api/login/", {
+      "user_name": user_name,
+      "user_password": user_password
+    });
   }
 
   // Funkcja umożliwiająca wylogowanie

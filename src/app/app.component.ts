@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpServiceInterface } from './interfaces';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  loggedIn = false;
   hidden = false;
   unreadMessages = 0;
   private router: Router;
@@ -17,6 +19,10 @@ export class AppComponent {
   title = 'mdb-angular-free';
 
   successAlert = false;
+
+  constructor(
+    @Inject('HttpServiceInterface') public httpService: HttpServiceInterface,
+  ){}
 
   navigateToChat(){
     this.router.navigate(['/chat']);
@@ -51,5 +57,4 @@ enum ButtonType{
   none,
   home, 
   info,
-  chat,
 }

@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpServiceInterface } from '../interfaces';
+import { User } from '../user';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +19,25 @@ export class LoginComponent {
   title = 'mdb-angular-free';
 
   successAlert = false;
+
+  form = new FormGroup({
+    user_name: new FormControl(""),
+    user_password: new FormControl(""),
+  });
+
+  constructor(
+    @Inject('HttpServiceInterface') private httpService: HttpServiceInterface,
+  ){}
+
+  onLoginSubmit(){
+    const formValue = this.form.value
+    this.httpService.login(formValue.user_name, formValue.user_password).subscribe(response => {
+      if (response.loggedin == true) {
+        this.httpService.changedLoginState(response.loggedin);
+        this.httpService.loginUserData = new User(response.user_id, response.user_name, response.loggedin);
+      }
+    })
+  }
 
   navigateToChat(){
     this.router.navigate(['/chat']);

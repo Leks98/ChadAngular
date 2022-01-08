@@ -30,15 +30,12 @@
 
           </ul>
           <ul class="navbar-nav ml-auto nav-flex-icons">
-            <li class="nav-item waves-light" mdbWavesEffect style="align-self: center;"
-            (click)="selectedButton = buttonEnumType.chat" [ngClass]="{'active' : selectedButton == buttonEnumType.chat}">
-              <a class="nav-link" href="#chat">
-                <mat-icon [ngStyle]="{'color':'white'}" matBadge="{{unreadMessages}}" matBadgeColor="warn">mail_outline
-                </mat-icon>
-              </a>
+            <li class="nav-item waves-light" mdbWavesEffect style="align-self: center;" *ngIf="httpService.loggedIn | async">
+              <mat-icon [ngStyle]="{'color':'white'}" matBadge="{{unreadMessages}}" matBadgeColor="warn">mail_outline
+              </mat-icon>
             </li>
 
-            <li class="nav-item avatar dropdown" dropdown>
+            <li class="nav-item avatar dropdown" dropdown *ngIf="httpService.loggedIn | async">
               <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light"
                 mdbWavesEffect>
                 <img class="transform-size" src="/assets/images/photo.jpg"

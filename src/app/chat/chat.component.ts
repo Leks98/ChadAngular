@@ -29,7 +29,7 @@ export class ChatComponent {
     @Inject('HttpServiceInterface') private httpService: HttpServiceInterface,
   ) {
     // Sprawdzenie czy uzytkownik nie jest zalogowany, jezeli tak - przejscie do głownego panelu
-    if (!httpService.isLogin) {
+    if (!httpService.loggedIn) {
       //this.router.navigate(['/login']);
     }
   }
