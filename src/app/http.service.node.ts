@@ -34,10 +34,11 @@ export class HttpServiceNode implements HttpServiceInterface {
   }
 
   // Funkcja umożliwiająca rejestrację
-  register(user: User) {
-    return of({
-        register: true
-    })
+  register(user_name: string, user_email: string, user_password: string) {
+    return this.httpClient.post("/api/register/", {
+      "user_name": user_email,
+      "user_password": user_password
+    });
   }
 
   getUsers(){

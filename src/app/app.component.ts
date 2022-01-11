@@ -12,7 +12,6 @@ export class AppComponent {
   loggedIn = false;
   hidden = false;
   unreadMessages = null;
-  private router: Router;
 
   hoveredButton:ButtonType; 
   selectedButton = ButtonType.home;
@@ -22,6 +21,7 @@ export class AppComponent {
   successAlert = false;
 
   constructor(
+    private router: Router,
     @Inject('HttpServiceInterface') public httpService: HttpServiceInterface,
   ){}
 
@@ -43,6 +43,13 @@ export class AppComponent {
     .subscribe(value => {
       value ? this.navigateToChat() : this.navigateToLogin();
     })
+  }
+
+  logOut() {
+    this.loggedIn = false;
+    this.httpService.changedLoginState(false);
+    this.httpService.loginUserData = null;
+    this.router.navigate(['/login']);
   }
 
   setUnreadMessageNumber(value: number){

@@ -4,6 +4,7 @@ import { User } from '../user';
 import { Message } from '../message';
 import { MessageWSService } from '../message-ws.service';
 import { HttpServiceInterface } from '../interfaces';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chat',
@@ -29,9 +30,13 @@ export class ChatComponent {
     @Inject('HttpServiceInterface') private httpService: HttpServiceInterface,
   ) {
     // Sprawdzenie czy uzytkownik nie jest zalogowany, jezeli tak - przejscie do głownego panelu
-    if (!httpService.loggedIn) {
-      this.router.navigate(['/login']);
-    }
+    this.httpService.loggedIn
+    .pipe(first())
+    .subscribe(value => {
+      if (!value) { 
+        this.router.navigate(['/login']);
+      }
+    })
   }
 
   filter(filter: string) {

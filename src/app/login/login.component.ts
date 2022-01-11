@@ -19,6 +19,12 @@ export class LoginComponent {
 
   successAlert = false;
 
+  registerForm = new FormGroup({
+    user_name: new FormControl(""),
+    user_email: new FormControl(""),
+    user_password: new FormControl(""),
+  });
+
   form = new FormGroup({
     user_name: new FormControl(""),
     user_password: new FormControl(""),
@@ -29,9 +35,17 @@ export class LoginComponent {
     @Inject('HttpServiceInterface') private httpService: HttpServiceInterface,
   ){}
 
+  onRegisterSubmit(){
+    const formValue = this.registerForm.value
+    console.log(formValue.user_name)
+    console.log(formValue.user_password)
+    this.httpService.register(formValue.user_name, formValue.user_email, formValue.user_password)
+  }
+  
   onLoginSubmit(){
     const formValue = this.form.value
-    this.httpService.login(formValue.user_name, formValue.user_password).subscribe(response => {
+    this.httpService.login(formValue.user_name, formValue.user_password)
+    .subscribe( response => {
       if (response.loggedin == true) {
         this.httpService.changedLoginState(response.loggedin);
         this.httpService.loginUserData = new User(response.user_id, response.user_name, response.loggedin);

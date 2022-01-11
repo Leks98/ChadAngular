@@ -30,7 +30,7 @@ export class HttpServiceMock implements HttpServiceInterface {
   }
 
   // Funkcja umożliwiająca rejestrację
-  register(user: User) {
+  register(user_name: string, user_email: string, user_password: string) {
     return of({
         register: true
     })

@@ -34,8 +34,8 @@ export class HttpService implements HttpServiceInterface {
   }
 
   // Funkcja umożliwiająca rejestrację
-  register(user: User) {
-    return this.http.post(URL + "/register", user);
+  register(user_name: string, user_email: string, user_password: string) {
+    return this.http.post(URL + "/register", new User(-1, "", true));
   }
 
   getUsers(){
