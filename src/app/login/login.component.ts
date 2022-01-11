@@ -12,7 +12,6 @@ import { User } from '../user';
 export class LoginComponent {
   hidden = false;
   unreadMessages = 0;
-  private router: Router;
 
   btType:ButtonType; 
   buttonEnumType: typeof ButtonType = ButtonType;
@@ -26,6 +25,7 @@ export class LoginComponent {
   });
 
   constructor(
+    private router: Router,
     @Inject('HttpServiceInterface') private httpService: HttpServiceInterface,
   ){}
 
@@ -35,6 +35,7 @@ export class LoginComponent {
       if (response.loggedin == true) {
         this.httpService.changedLoginState(response.loggedin);
         this.httpService.loginUserData = new User(response.user_id, response.user_name, response.loggedin);
+        this.router.navigateByUrl("/chat")
       }
     })
   }

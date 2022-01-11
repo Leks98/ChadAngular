@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpServiceInterface } from './interfaces';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { HttpServiceInterface } from './interfaces';
 export class AppComponent {
   loggedIn = false;
   hidden = false;
-  unreadMessages = 0;
+  unreadMessages = null;
   private router: Router;
 
   hoveredButton:ButtonType; 
@@ -28,8 +29,27 @@ export class AppComponent {
     this.router.navigate(['/chat']);
   }
 
-  setUnreadMessageNumber(){
-    this.unreadMessages = 15;
+  navigateToLogin(){
+    this.router.navigate(['/login']);
+  }
+
+  navigateToInfo(){
+    this.router.navigate(['/info']);
+  }
+
+  navigateToHomePage() {
+    this.httpService.loggedIn
+    .pipe(first())
+    .subscribe(value => {
+      value ? this.navigateToChat() : this.navigateToLogin();
+    })
+  }
+
+  setUnreadMessageNumber(value: number){
+    if (value == 0) 
+      this.unreadMessages = null;
+    else 
+      this.unreadMessages = value;
   }
   setHoveredButton(buttonType:ButtonType){
     this.hoveredButton=buttonType;
