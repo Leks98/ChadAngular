@@ -30,7 +30,7 @@ export class HttpServiceNode implements HttpServiceInterface {
 
   // Funkcja umożliwiająca wylogowanie
   logout() {
-    return of({})
+    return this.httpClient.get("api/logout/");
   }
 
   // Funkcja umożliwiająca rejestrację
@@ -42,31 +42,12 @@ export class HttpServiceNode implements HttpServiceInterface {
   }
 
   getUsers(){
-    return of({
-        data: [
-            new User(1, "user_name_1", true),
-            new User(2, "user_name_2", true),
-        ]
-    })
+    return this.httpClient.get("/api/users/")
   }
 
-  getMessages(id: number){
-      switch(id) {
-          case 1:
-            return of({
-                data: [
-                    new Message(0, "1 to 0, hello"),
-                    new Message(1, "0 to 1, hello"),
-                ]
-            })
-        case 2:
-            return of({
-                data: [
-                    new Message(0, "2 to 0, hello"),
-                    new Message(2, "0 to 2, hello"),
-                ]
-            })
-      }
+  getMessages(id: number) {
+    var messagesFromSelectedUser = this.httpClient.get("/api/messages/" + id) as any;
+    return messagesFromSelectedUser;
   }
 
   sendMessages(mes: Message){

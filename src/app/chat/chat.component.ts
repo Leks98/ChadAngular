@@ -73,7 +73,7 @@ export class ChatComponent {
   sendMessage(e) {
 //
     
-    this.httpService.sendMessages(new Message(this.selectedUser.user_id,e)).subscribe(
+    this.httpService.sendMessages(new Message(this.selectedUser.user_id,e, new Date().toString())).subscribe(
       data => {
         console.log("ChatComponent, onSubmit:", data);
       },
@@ -100,7 +100,6 @@ export class ChatComponent {
   // funkcja wywoływana gdy zostanie wybrany użytkownik na liście użytkowników
   userSelected(user: User) {
     this.selectedUser = user;
-    console.log("Selected user", this.selectedUser)
     this.getMessagesWithSelectedUser();
   }
 
@@ -109,15 +108,12 @@ export class ChatComponent {
     this.httpService.getMessages(this.selectedUser.user_id).subscribe(
       data => {
         if ("data" in data) {
-          console.log("data");
           if (Array.isArray(data["data"])) {
             this.messagesToUser = data["data"] as Message[];
           }
         }
-
       },
       error => {
       });
   }
-
 }

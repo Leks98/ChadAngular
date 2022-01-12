@@ -26,8 +26,8 @@ export class LoginComponent {
   });
 
   form = new FormGroup({
-    user_name: new FormControl(""),
-    user_password: new FormControl(""),
+    user_name: new FormControl("mmms"),
+    user_password: new FormControl("qwerty"),
   });
 
   constructor(
@@ -74,9 +74,7 @@ export class LoginComponent {
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
-
     this.successAlert = true;
-
     setTimeout(() => {
       this.successAlert = false;
     }, 900);

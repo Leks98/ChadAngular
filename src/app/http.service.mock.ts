@@ -50,15 +50,15 @@ export class HttpServiceMock implements HttpServiceInterface {
           case 1:
             return of({
                 data: [
-                    new Message(0, "1 to 0, hello"),
-                    new Message(1, "0 to 1, hello"),
+                    new Message(0, "1 to 0, hello", new Date().toString()),
+                    new Message(1, "0 to 1, hello", new Date().toString()),
                 ]
             })
         case 2:
             return of({
                 data: [
-                    new Message(0, "2 to 0, hello"),
-                    new Message(2, "0 to 2, hello"),
+                    new Message(0, "2 to 0, hello", new Date().toString()),
+                    new Message(2, "0 to 2, hello", new Date().toString()),
                 ]
             })
       }
