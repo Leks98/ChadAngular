@@ -34,15 +34,15 @@
 
 
                     <div class="grey-text form-check d-flex mb-4">
-                      <input class="form-check-input me-2" type="checkbox" id="registerCheck" unchecked />
-                      <label class="form-check-label" for="registerCheck">
+                      <input class="form-check-input me-2" type="checkbox" id="registerCheck" (change)="checkboxChecked = !checkboxChecked" unchecked/>
+                      <label class="form-check-label" for="registerCheck" [ngStyle]="{'color':checkboxChecked ? '' : '#ff2222'}">
                         I have read and agree to the terms
                       </label>
                     </div>
                   </div>
 
                   <div class="text-center mt-4 credentials-button-div">
-                    <button class="element-center" mdbBtn color="info" mdbWavesEffect type="submit">
+                    <button class="element-center" mdbBtn color="info" mdbWavesEffect type="submit" [disabled]="!checkboxChecked">
                       <div class="font-color">
                         Sign up
                       </div>

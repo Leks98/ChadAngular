@@ -12,7 +12,7 @@ import { User } from '../user';
 export class LoginComponent {
   hidden = false;
   unreadMessages = 0;
-
+  checkboxChecked = false;
   btType:ButtonType; 
   buttonEnumType: typeof ButtonType = ButtonType;
   title = 'mdb-angular-free';
