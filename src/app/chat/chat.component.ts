@@ -5,6 +5,7 @@ import { Message } from '../message';
 import { MessageWSService } from '../message-ws.service';
 import { HttpServiceInterface } from '../interfaces';
 import { first } from 'rxjs/operators';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-chat',
@@ -24,6 +25,10 @@ export class ChatComponent {
   // wybrany uzytkownik
   selectedUser: User = null;
 
+  messageForm = new FormGroup({
+    message_text: new FormControl(""),
+  })
+
   constructor(
     private router: Router,
     private wsService: MessageWSService,
@@ -37,6 +42,13 @@ export class ChatComponent {
         this.router.navigate(['/login']);
       }
     })
+  }
+
+  onMessageSubmit(){
+    var message = new Message(this.selectedUser.user_id, this.messageForm.value.message_text, new Date().toUTCString());
+    this.httpService.sendMessages(message).subscribe(_ => {
+      this.getMessagesWithSelectedUser();
+    });
   }
 
   filter(filter: string) {

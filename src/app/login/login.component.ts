@@ -37,8 +37,6 @@ export class LoginComponent {
 
   onRegisterSubmit(){
     const formValue = this.registerForm.value
-    console.log(formValue.user_name)
-    console.log(formValue.user_password)
     this.httpService.register(formValue.user_name, formValue.user_email, formValue.user_password)
   }
   

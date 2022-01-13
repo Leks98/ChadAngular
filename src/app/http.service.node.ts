@@ -51,7 +51,10 @@ export class HttpServiceNode implements HttpServiceInterface {
   }
 
   sendMessages(mes: Message){
-    return of({})
+    return this.httpClient.post("/api/messages/", {
+      "message_to_user_id": mes.message_to_user_id.toString(),
+      "message_text": mes.message_text
+    });
   }
   // Setter ustawiający wartość w polu loginUserData
   set user(user: User) {
