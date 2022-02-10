@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { HttpServiceInterface } from '../interfaces';
 import { User } from '../user';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from '@angular/forms';
+import { filter, switchMapTo, tap } from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material/snack-bar'; 
+
 
 @Component({
   selector: 'app-root',
@@ -21,20 +24,26 @@ export class LoginComponent {
   successAlert = false;
 
   registerForm = new FormBuilder().group({
-    user_name: new FormControl("", [
+    user_name: new FormControl("miszelo", [
       Validators.required, 
       Validators.minLength(3),
       Validators.pattern("^[a-zA-Z]+$")
     ]),
-    user_email: new FormControl("", [
+    user_email: new FormControl("qwe@pl.com", [
       Validators.required, 
       Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
     ]),
-    user_password: new FormControl("",[
+    user_password: new FormControl("qweqwe",[
       Validators.required, 
       Validators.minLength(3),
     ]),
   });
+
+  openSnackBar( msg:string) {
+    this.snackBar.open(msg, "OK", {
+      duration: 5000
+    });
+  }
 
   loginForm = new FormBuilder().group({
     user_name: new FormControl("", [
@@ -51,19 +60,36 @@ export class LoginComponent {
   constructor(
     private router: Router,
     @Inject('HttpServiceInterface') private httpService: HttpServiceInterface,
+    private snackBar: MatSnackBar
   ){}
 
   onRegisterSubmit(){
     this.registerFormSubmitted = true;
     if(this.registerForm.valid) {
       const formValue = this.registerForm.value
-      this.httpService.register(formValue.user_name, formValue.user_email, formValue.user_password)
+      this.httpService.register(formValue.user_name, formValue.user_password)
+      .pipe(tap(response => {
+        if (response.register == false) {
+          this.openSnackBar("Register not complete");
+         }
+      }),
+        filter(response => response.register),
+        switchMapTo(this.httpService.login(formValue.user_name, formValue.user_password)))
+        .subscribe( response => {
+          if (response.loggedin == true) {
+            this.httpService.changedLoginState(response.loggedin);
+            this.httpService.loginUserData = new User(response.user_id, response.user_name, response.loggedin);
+            this.router.navigateByUrl("/chat")
+        }
+      })
+      
+      
     }
   }
-  
+
   onLoginSubmit(){
     this.loginFormSubmitted = true;
-    if(this.registerForm.valid) {
+    if(this.loginForm.valid) {
       const formValue = this.loginForm.value
       this.httpService.login(formValue.user_name, formValue.user_password)
       .subscribe( response => {
@@ -71,7 +97,9 @@ export class LoginComponent {
           this.httpService.changedLoginState(response.loggedin);
           this.httpService.loginUserData = new User(response.user_id, response.user_name, response.loggedin);
           this.router.navigateByUrl("/chat")
-        }
+        } else {
+          this.openSnackBar("Invalid login credentials");
+         }
       })
     }
   }

@@ -29,6 +29,7 @@ import { HttpServiceMock } from './http.service.mock';
 import { MessageComponent } from './message/message.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { HttpServiceNode } from './http.service.node';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -60,7 +61,7 @@ import { HttpServiceNode } from './http.service.node';
     MatTabsModule,
     MatCardModule,
     MatCheckboxModule,
-    
+    MatSnackBarModule,
   ],
   providers: [
     {

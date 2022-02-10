@@ -14,7 +14,7 @@ export interface HttpServiceInterface {
   logout(): Observable<Object>;
 
   // Funkcja umożliwiająca rejestrację
-  register(user_name: string, user_email: string, user_password: string): Observable<any>;
+  register(user_name: string, user_password: string): Observable<any>;
 
   getUsers(): Observable<Object>;
 

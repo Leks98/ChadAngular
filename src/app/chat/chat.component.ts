@@ -6,6 +6,7 @@ import { MessageWSService } from '../message-ws.service';
 import { HttpServiceInterface } from '../interfaces';
 import { first } from 'rxjs/operators';
 import { FormControl, FormGroup } from '@angular/forms';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -24,7 +25,7 @@ export class ChatComponent {
   messagesToUser: Message[] = [];
   messageNumber = 0;
 
-  intervalId = setInterval( () => this.getMessagesWithSelectedUser(), 100 );
+  intervalId = setInterval( () => this.getMessagesWithSelectedUser(), 1000 );
 
   // wybrany uzytkownik
   selectedUser: User = null;
@@ -121,6 +122,7 @@ export class ChatComponent {
 
   // Funkcja pobierające listę wiadomości z danym użytkownikiem
   getMessagesWithSelectedUser() {
+    //if (this.selectedUser == null) return of([]);
     this.httpService.getMessages(this.selectedUser.user_id).subscribe(
       data => {
         if ("data" in data) {
