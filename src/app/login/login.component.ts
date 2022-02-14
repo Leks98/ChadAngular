@@ -24,16 +24,16 @@ export class LoginComponent {
   successAlert = false;
 
   registerForm = new FormBuilder().group({
-    user_name: new FormControl("miszelo", [
+    user_name: new FormControl("", [
       Validators.required, 
       Validators.minLength(3),
       Validators.pattern("^[a-zA-Z]+$")
     ]),
-    user_email: new FormControl("qwe@pl.com", [
+    user_email: new FormControl("", [
       Validators.required, 
       Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
     ]),
-    user_password: new FormControl("qweqwe",[
+    user_password: new FormControl("",[
       Validators.required, 
       Validators.minLength(3),
     ]),
