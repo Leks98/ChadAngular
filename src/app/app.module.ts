@@ -11,9 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { ChatComponent } from './chat/chat.component';
-import { ChatUserListComponent } from './chat-user-list/chat-user-list.component';
-import { ChatMessageListComponent } from './chat-message-list/chat-message-list.component';
-import { ChatNewMessageAreaComponent } from './chat-new-message-area/chat-new-message-area.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -36,9 +33,6 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     AppComponent,
     LoginComponent,
     ChatComponent,
-    ChatUserListComponent,
-    ChatMessageListComponent,
-    ChatNewMessageAreaComponent,
     MessageComponent,
     UserViewComponent
   ],
